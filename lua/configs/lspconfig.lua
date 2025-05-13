@@ -1,6 +1,74 @@
-require("nvchad.configs.lspconfig").defaults()
+-- require("nvchad.configs.lspconfig").defaults()
+
+-- local lspconfig = require("lspconfig")
+-- local util = require("lspconfig.util")
+--
+-- local function get_omnisharp_cmd()
+--   local omnisharp_bin = vim.fn.stdpath("data") .. "/mason/bin/omnisharp"
+--
+--   if vim.fn.filereadable(omnisharp_bin) == 0 then
+--     vim.notify("[omnisharp] Error: omnisharp binary not found at " .. omnisharp_bin, vim.log.levels.ERROR)
+--     return nil
+--   end
+--
+--   -- Получаем текущий буфер
+--   local bufname = vim.api.nvim_buf_get_name(0)
+--   if bufname == "" then
+--     return { omnisharp_bin }
+--   end
+--
+--   -- Ищем .sln в директории проекта
+--   local solution = util.search_ancestors(bufname, function(path)
+--     local sln_files = vim.fn.glob(path .. "/*.sln", false, true)
+--     if #sln_files > 0 then
+--       return sln_files[1]
+--     end
+--   end)
+--
+--   if solution then
+--     return { omnisharp_bin, "--solution", solution }
+--   else
+--     vim.notify("[omnisharp] No .sln found. Running without --solution", vim.log.levels.WARN)
+--     return { omnisharp_bin }
+--   end
+-- end
+--
+-- lspconfig.omnisharp.setup {
+--   cmd = get_omnisharp_cmd(),
+--   capabilities = require("nvchad.configs.lspconfig").capabilities,
+--   on_attach = require("nvchad.configs.lspconfig").on_attach,
+--   settings = {
+--     FormattingOptions = {
+--       EnableEditorConfigSupport = false,
+--       OrganizeImports = true,
+--     },
+--     Sdk = {
+--       IncludePrereleases = true,
+--     },
+--   },
+-- }
+local nvlsp = require("nvchad.configs.lspconfig")
+
 
 local servers = { "html", "cssls" }
 vim.lsp.enable(servers)
 
+-- local lspconfig = require("lspconfig")
+-- lspconfig.omnisharp.setup {
+--   on_attach = nvlsp.on_attach,
+--   capabilities = nvlsp.capabilities,
+--   cmd = {
+--     "dotnet",
+--     vim.fn.stdpath "data" .. "/mason/bin/omnisharp",
+--   },
+--   settings = {
+--     FormattingOptions = {
+--       EnableEditorConfigSupport = false,
+--       OrganizeImports = true,
+--     },
+--     Sdk = {
+--       IncludePrereleases = true,
+--     },
+--   },
+-- }
 -- read :h vim.lsp.config for changing options of lsp servers 
